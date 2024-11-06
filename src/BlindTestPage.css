@@ -1,0 +1,23 @@
+.blind-test-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.stock-graph {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.hint-button, .prediction-button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.hint-area, .result-area {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
