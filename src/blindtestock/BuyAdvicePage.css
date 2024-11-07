@@ -1,0 +1,86 @@
+.buy-advice-page {
+  text-align: center;
+  padding: 20px;
+}
+
+.buy-advice-page input {
+  margin-top: 30px;
+  width: 12%;
+  padding: 10px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  margin-right: 10px;
+  text-align: center;
+  height: 19px;
+}
+
+.buy-advice-page button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #130c02;
+  color: white;
+  cursor: pointer;
+}
+
+.buy-advice-page button:hover {
+  background-color: #261905;
+}
+
+.advice-container {
+  margin-top: 20px;
+}
+
+.answer {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.good-bad-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.good, .bad {
+  width: 45%;
+}
+
+.good h2, .bad h2 {
+  color: #4caf50;
+}
+
+.bad h2 {
+  color: #f44336;
+}
+
+.buy-indicator {
+  font-size: 3em;
+}
+
+.buy-icon {
+  color: #4caf50;
+}
+
+.sell-icon {
+  color: #f44336;
+}
+
+.to-main {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  text-align: center;
+}
+
+.to-main .button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #130c02;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.to-main .button:hover {
+  background-color: #261905;
+}

@@ -21,3 +21,23 @@
     padding: 10px;
     border: 1px solid #ccc;
 }
+
+.to-main {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  text-align: center;
+}
+
+.to-main .button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #130c02;
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+
+.to-main .button:hover {
+  background-color: #261905;
+}

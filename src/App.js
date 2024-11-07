@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import MainPage from "./blindtestock/MainPage";
 import BlindTestPage from "./blindtestock/BlindTestPage";
-import OpenTestPage from "./blindtestock/OpenTestPage";
+import OpenTestPage from "./blindtestock/BuyAdvicePage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/blind-test" element={<BlindTestPage />} />
-          <Route path="/open-test" element={<OpenTestPage />} />
+          <Route path="/buy-advice" element={<OpenTestPage />} />
         </Routes>
       </div>
     </Router>

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import "./MainPage.css";
+import { useState } from "react";
+import axios from "axios";
 
 function Box() {
   const mesh = useRef();
@@ -21,6 +23,27 @@ function Box() {
 }
 
 function MainPage() {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  const handleQuestionChange = (event) => {
+    setQuestion(event.target.value);
+  };
+
+  const handleAskQuestion = async () => {
+    try {
+      console.log(question);
+      setAnswer("loading");
+      const aiChatResponse = await axios.post("http://127.0.0.1:5000/aiChat", {
+        message: question,
+      });
+      console.log(aiChatResponse.data);
+      setAnswer(aiChatResponse.data || "");
+    } catch (error) {
+      console.error("Error fetching the stock event:", error);
+    }
+  };
+
   return (
     <div className="main-page">
       <Canvas
@@ -46,9 +69,21 @@ function MainPage() {
           <Link to="/blind-test" className="button">
             블라인드 테스트하기
           </Link>
-          <Link to="/open-test" className="button">
-            오픈 테스트하기
+          <Link to="/buy-advice" className="button">
+            매수 검증하기
           </Link>
+        </div>
+        <div className="ask-anything">
+          <h2>무엇이든 물어보세요</h2>
+          <input
+            type="text"
+            value={question}
+            onChange={handleQuestionChange}
+            placeholder="질문을 입력하세요"
+          />
+          <button onClick={handleAskQuestion}>질문하기</button>
+          {answer === "loading" && <p>음,, 생각 중...</p>}
+          {answer && answer !== "loading" && <p className="answer">{answer}</p>}
         </div>
       </div>
     </div>

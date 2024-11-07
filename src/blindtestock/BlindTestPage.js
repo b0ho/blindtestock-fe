@@ -3,6 +3,7 @@ import axios from "axios";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import "./BlindTestPage.css";
+import { Link } from "react-router-dom";
 
 // 미국 주식 50대 종목 심볼 목록
 const symbols = [
@@ -10,30 +11,20 @@ const symbols = [
   "MSFT",
   "GOOGL",
   "AMZN",
-  "FB",
   "TSLA",
-  "BRK.B",
   "NVDA",
   "JPM",
   "JNJ",
-  "V",
-  "PG",
   "UNH",
-  "HD",
   "DIS",
-  "MA",
   "PYPL",
   "BAC",
-  "VZ",
   "ADBE",
   "NFLX",
   "INTC",
   "CMCSA",
   "PFE",
-  "KO",
   "PEP",
-  "T",
-  "MRK",
   "ABT",
   "CSCO",
   "XOM",
@@ -51,9 +42,7 @@ const symbols = [
   "AVGO",
   "QCOM",
   "DHR",
-  "BMY",
   "UNP",
-  "PM",
   "LIN",
   "ORCL",
 ];
@@ -81,6 +70,7 @@ function BlindTestPage() {
   const [hint1, setHint1] = useState("");
   const [hint2, setHint2] = useState("");
   const [prices, setPrices] = useState([]);
+  const [rmi, setRmi] = useState([]);
 
   useEffect(() => {
     const randomDate = getRandomDate(
@@ -93,23 +83,36 @@ function BlindTestPage() {
 
     const fetchData = async () => {
       try {
-        const [goodEventResponse, badEventResponse, pricesResponse] =
-          await Promise.all([
-            axios.post("http://127.0.0.1:5000/getStockGoodEvent", {
-              message: `${randomDate}의 ${randomSymbol} 좋은 뉴스 알려줘`,
-            }),
-            axios.post("http://127.0.0.1:5000/getStockBadEvent", {
-              message: `${randomDate}의 ${randomSymbol} 나쁜 뉴스 알려줘`,
-            }),
-            axios.post("http://127.0.0.1:5000/getStockPrices", {
-              symbol: randomSymbol,
-              date: randomDate,
-            }),
-          ]);
+        const [
+          goodEventResponse,
+          badEventResponse,
+          pricesResponse,
+          rmiResponse,
+        ] = await Promise.all([
+          axios.post("http://127.0.0.1:5000/getStockGoodEvent", {
+            message: `${randomDate}의 ${randomSymbol} 좋은 뉴스 알려줘`,
+          }),
+          axios.post("http://127.0.0.1:5000/getStockBadEvent", {
+            message: `${randomDate}의 ${randomSymbol} 나쁜 뉴스 알려줘`,
+          }),
+          axios.post("http://127.0.0.1:5000/getStockPrices", {
+            symbol: randomSymbol,
+            date: randomDate,
+          }),
+          axios.post("http://127.0.0.1:5000/getStockRmi", {
+            symbol: randomSymbol,
+            date: randomDate,
+          }),
+        ]);
 
         setHint1(goodEventResponse.data || "");
         setHint2(badEventResponse.data || "");
         setPrices(pricesResponse.data || []);
+        setRmi(rmiResponse.data || []);
+        console.log("hint1: ", goodEventResponse.data);
+        console.log("hint2: ", badEventResponse.data);
+        console.log("Prices: ", pricesResponse.data);
+        console.log("Rmi: ", rmiResponse.data);
       } catch (error) {
         console.error("Error fetching the stock data:", error);
       }
@@ -204,6 +207,12 @@ function BlindTestPage() {
           </p>
         </div>
       )}
+
+      <div className="to-main">
+        <Link to="/" className="button">
+          메인으로 돌아가기
+        </Link>
+      </div>
     </div>
   );
 }
